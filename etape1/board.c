@@ -28,7 +28,7 @@ static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastC
         empty_case = true;
       }
     }
-  }
+  }je fais de la merde
   if (!empty_case) {
     result = true;
     *gameResult = DRAW;
