@@ -1,6 +1,9 @@
 #include "board.h"
 #include <assert.h>
+#include <stdio.h>
 
+PieceType board[3][3];
+GameResult result;
 
 /**
  * Check if the game has to be ended. Only alignment from the last
@@ -18,50 +21,40 @@
  *
  * @return a boolean that tells if the game is finished
  */
+
 static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastChangeX, Coordinate lastChangeY, GameResult *gameResult)
 {
   bool result = false, empty_case = false;
-
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       if (boardSquares[i][j] == NONE) {
         empty_case = true;
       }
     }
-  }je fais de la merde
+  }
   if (!empty_case) {
     result = true;
     *gameResult = DRAW;
   }
-  for (int i = 1; i < 3; i++) {
-    if (boardSquares[0][0] == i && boardSquares[0][1] == i && boardSquares[0][2] == i) {
+
+  for (PieceType i = CROSS; i <= CIRCLE; i++) {
+    if (boardSquares[lastChangeY][0] == i && boardSquares[lastChangeY][1] == i && boardSquares[lastChangeY][2] == i) { //vérification de la ligne
       *gameResult = i;
       result = true;
-    } else if (boardSquares[1][0] == i && boardSquares[1][1] == i && boardSquares[1][2] == i) {
+    } else if (boardSquares[1][lastChangeX] == i && boardSquares[1][lastChangeX] == i && boardSquares[2][lastChangeX] == i) { //vérification de la colonne
       *gameResult = i;
       result = true;
-    } else if (boardSquares[2][0] == i && boardSquares[2][1] == i && boardSquares[2][2] == i) {
+    } else if (boardSquares[0][0] == i && boardSquares[1][1] == i && boardSquares[2][2] == i) { //vérification de la première diagonale
       *gameResult = i;
       result = true;
-    } else if (boardSquares[1][0] == i && boardSquares[1][0] == i && boardSquares[2][0] == i) {
-      *gameResult = i;
-      result = true;
-    } else if (boardSquares[0][1] == i && boardSquares[1][1] == i && boardSquares[2][1] == i) {
-      *gameResult = i;
-      result = true;
-    } else if (boardSquares[0][2] == i && boardSquares[1][2] == i && boardSquares[2][2] == i) {
-      *gameResult = i;
-      result = true;
-    } else if (boardSquares[0][0] == i && boardSquares[1][1] == i && boardSquares[2][2] == i) {
-      *gameResult = i;
-      result = true;
-    } else if (boardSquares[2][0] == i && boardSquares[1][1] == i && boardSquares[0][2] == i) {
+    } else if (boardSquares[2][0] == i && boardSquares[1][1] == i && boardSquares[0][2] == i) { //vérification de la seconde diagonale
       *gameResult = i;
       result = true;
     }
   }
   return result;
 }
+
 
 // void Board_init (SquareChangeCallback onSquareChange, EndOfGameCallback onEndOfGame)
 // {
@@ -73,10 +66,19 @@ static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastC
 //   // TODO: à compléter
 // }
 
-// PutPieceResult Board_putPiece (Coordinate x, Coordinate y, PieceType kindOfPiece)
-// {
-//   // TODO: à compléter
-// }
+PutPieceResult Board_putPiece (Coordinate x, Coordinate y, PieceType kindOfPiece){
+  if (x<0 || x>2 || y<0 || y>2 || kindOfPiece==NONE){
+    return SQUARE_IS_NOT_EMPTY;
+  }
+  if (board[y][x]==NONE){
+    board[y][x]=kindOfPiece;
+    bool gameFinished = isGameFinished(board, x, y, &result);
+    return PIECE_IN_PLACE;
+  }
+  else {
+    return SQUARE_IS_NOT_EMPTY;
+  }
+}
 
 // PieceType Board_getSquareContent (Coordinate x, Coordinate y)
 // {

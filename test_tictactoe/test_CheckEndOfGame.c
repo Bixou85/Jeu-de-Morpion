@@ -8,7 +8,7 @@
  */
 
 // WARNING : ".c" file inclusion only allowed for unit tests !
-#include "board.c"
+#include "../etape1/board.c"
 #include "test_CheckEndOfGame.h"
 #include <stdio.h>
 
