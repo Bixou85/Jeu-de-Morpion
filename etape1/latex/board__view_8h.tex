@@ -1,0 +1,132 @@
+\hypertarget{board__view_8h}{}\doxysection{Référence du fichier board\+\_\+view.\+h}
+\label{board__view_8h}\index{board\_view.h@{board\_view.h}}
+{\ttfamily \#include \char`\"{}board.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de board\+\_\+view.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{board__view_8h__incl}
+\end{center}
+\end{figure}
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{board__view_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{board__view_8h_afa9be49293ac796482cc7104bdd585b9}{Board\+View\+\_\+init}} (void)
+\item 
+void \mbox{\hyperlink{board__view_8h_a4e43ae9add274f8e7e5e9af62138bc20}{Board\+View\+\_\+free}} (void)
+\item 
+void \mbox{\hyperlink{board__view_8h_af605f5fea5e1eefba9ea347978b788c4}{Board\+View\+\_\+display\+All}} (void)
+\item 
+void \mbox{\hyperlink{board__view_8h_a194c929d43a3043cf1a7a7ba767fffaa}{Board\+View\+\_\+display\+Square}} (\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} x, \mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} y, \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} kind\+Of\+Piece)
+\item 
+void \mbox{\hyperlink{board__view_8h_a9385a34b71ebad776b4ed7aeb48f72d3}{Board\+View\+\_\+display\+End\+Of\+Game}} (\mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6}{Game\+Result}} result)
+\item 
+void \mbox{\hyperlink{board__view_8h_a55ef7f67d406f553602632425bde232a}{Board\+View\+\_\+display\+Players\+Turn}} (\mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} this\+Player)
+\item 
+void \mbox{\hyperlink{board__view_8h_abe616e73b779409a73714521ebf7ffe7}{Board\+View\+\_\+say\+Cannot\+Put\+Piece}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Tic tac toe\textquotesingle{}s board visualisation module
+
+\begin{DoxyDate}{Date}
+7/10/2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Auteur}
+Jonathan ILIAS-\/\+PILLET \& Richard WOODWARD 
+\end{DoxyAuthor}
+
+
+Définition dans le fichier \mbox{\hyperlink{board__view_8h_source}{board\+\_\+view.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{board__view_8h_af605f5fea5e1eefba9ea347978b788c4}\label{board__view_8h_af605f5fea5e1eefba9ea347978b788c4}} 
+\index{board\_view.h@{board\_view.h}!BoardView\_displayAll@{BoardView\_displayAll}}
+\index{BoardView\_displayAll@{BoardView\_displayAll}!board\_view.h@{board\_view.h}}
+\doxysubsubsection{\texorpdfstring{BoardView\_displayAll()}{BoardView\_displayAll()}}
+{\footnotesize\ttfamily void Board\+View\+\_\+display\+All (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Displays the entire board (including background) at current status. \mbox{\Hypertarget{board__view_8h_a9385a34b71ebad776b4ed7aeb48f72d3}\label{board__view_8h_a9385a34b71ebad776b4ed7aeb48f72d3}} 
+\index{board\_view.h@{board\_view.h}!BoardView\_displayEndOfGame@{BoardView\_displayEndOfGame}}
+\index{BoardView\_displayEndOfGame@{BoardView\_displayEndOfGame}!board\_view.h@{board\_view.h}}
+\doxysubsubsection{\texorpdfstring{BoardView\_displayEndOfGame()}{BoardView\_displayEndOfGame()}}
+{\footnotesize\ttfamily void Board\+View\+\_\+display\+End\+Of\+Game (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6}{Game\+Result}}}]{result }\end{DoxyParamCaption})}
+
+Displays a message to the user at the end of the game.
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em result} & winning status \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{board__view_8h_a55ef7f67d406f553602632425bde232a}\label{board__view_8h_a55ef7f67d406f553602632425bde232a}} 
+\index{board\_view.h@{board\_view.h}!BoardView\_displayPlayersTurn@{BoardView\_displayPlayersTurn}}
+\index{BoardView\_displayPlayersTurn@{BoardView\_displayPlayersTurn}!board\_view.h@{board\_view.h}}
+\doxysubsubsection{\texorpdfstring{BoardView\_displayPlayersTurn()}{BoardView\_displayPlayersTurn()}}
+{\footnotesize\ttfamily void Board\+View\+\_\+display\+Players\+Turn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}}}]{this\+Player }\end{DoxyParamCaption})}
+
+Displays who has to play.
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em this\+Player} & the player who has to play, designated by its piece type\\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Précondition}
+this\+Player cannot be NONE 
+\end{DoxyPrecond}
+\mbox{\Hypertarget{board__view_8h_a194c929d43a3043cf1a7a7ba767fffaa}\label{board__view_8h_a194c929d43a3043cf1a7a7ba767fffaa}} 
+\index{board\_view.h@{board\_view.h}!BoardView\_displaySquare@{BoardView\_displaySquare}}
+\index{BoardView\_displaySquare@{BoardView\_displaySquare}!board\_view.h@{board\_view.h}}
+\doxysubsubsection{\texorpdfstring{BoardView\_displaySquare()}{BoardView\_displaySquare()}}
+{\footnotesize\ttfamily void Board\+View\+\_\+display\+Square (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}}}]{x,  }\item[{\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}}}]{y,  }\item[{\mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}}}]{kind\+Of\+Piece }\end{DoxyParamCaption})}
+
+Display the specified content into the specified square.
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em x} & logical column coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & logical row coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em kind\+Of\+Piece} & the content to display (can be NONE if empty)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Précondition}
+x must be in \mbox{[}0..2\mbox{]} 
+
+y must be in \mbox{[}0..2\mbox{]} 
+\end{DoxyPrecond}
+\mbox{\Hypertarget{board__view_8h_a4e43ae9add274f8e7e5e9af62138bc20}\label{board__view_8h_a4e43ae9add274f8e7e5e9af62138bc20}} 
+\index{board\_view.h@{board\_view.h}!BoardView\_free@{BoardView\_free}}
+\index{BoardView\_free@{BoardView\_free}!board\_view.h@{board\_view.h}}
+\doxysubsubsection{\texorpdfstring{BoardView\_free()}{BoardView\_free()}}
+{\footnotesize\ttfamily void Board\+View\+\_\+free (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Destructor of the board view.
+
+Must be called after using any function of this module to free related resources. \mbox{\Hypertarget{board__view_8h_afa9be49293ac796482cc7104bdd585b9}\label{board__view_8h_afa9be49293ac796482cc7104bdd585b9}} 
+\index{board\_view.h@{board\_view.h}!BoardView\_init@{BoardView\_init}}
+\index{BoardView\_init@{BoardView\_init}!board\_view.h@{board\_view.h}}
+\doxysubsubsection{\texorpdfstring{BoardView\_init()}{BoardView\_init()}}
+{\footnotesize\ttfamily void Board\+View\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Constructor of the board view.
+
+Must be called before any other function of this module. \mbox{\Hypertarget{board__view_8h_abe616e73b779409a73714521ebf7ffe7}\label{board__view_8h_abe616e73b779409a73714521ebf7ffe7}} 
+\index{board\_view.h@{board\_view.h}!BoardView\_sayCannotPutPiece@{BoardView\_sayCannotPutPiece}}
+\index{BoardView\_sayCannotPutPiece@{BoardView\_sayCannotPutPiece}!board\_view.h@{board\_view.h}}
+\doxysubsubsection{\texorpdfstring{BoardView\_sayCannotPutPiece()}{BoardView\_sayCannotPutPiece()}}
+{\footnotesize\ttfamily void Board\+View\+\_\+say\+Cannot\+Put\+Piece (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Displays a message when a move has been refused because the square is not empty 

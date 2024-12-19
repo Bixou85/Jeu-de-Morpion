@@ -1,0 +1,297 @@
+\hypertarget{board_8h}{}\doxysection{Référence du fichier board.\+h}
+\label{board_8h}\index{board.h@{board.h}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Graphe des dépendances par inclusion de board.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=136pt]{board_8h__incl}
+\end{center}
+\end{figure}
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{board_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned int \mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}}
+\item 
+typedef void($\ast$ \mbox{\hyperlink{board_8h_ae390693d85e5b060c294023d835bdb2b}{Square\+Change\+Callback}}) (\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} x, \mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} y, \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} new\+Content)
+\item 
+typedef void($\ast$ \mbox{\hyperlink{board_8h_a00275da41eaed07f849c29364cad87ce}{End\+Of\+Game\+Callback}}) (\mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6}{Game\+Result}} result)
+\end{DoxyCompactItemize}
+\doxysubsection*{Énumérations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} \{ \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}}
+, \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ad699bdf1731bd839b56c299536ba1d9d}{CROSS}}
+, \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021aa79c827759ea48f0735386c4b1188911}{CIRCLE}}
+ \}
+\item 
+enum \mbox{\hyperlink{board_8h_a9644515bdbb420ad692c02d3ec8de111}{Put\+Piece\+Result}} \{ \mbox{\hyperlink{board_8h_a9644515bdbb420ad692c02d3ec8de111afbde600ba9d56e1091a73a7f25b3b092}{PIECE\+\_\+\+IN\+\_\+\+PLACE}}
+, \mbox{\hyperlink{board_8h_a9644515bdbb420ad692c02d3ec8de111abb1620f7287121bc15f0a161792322eb}{SQUARE\+\_\+\+IS\+\_\+\+NOT\+\_\+\+EMPTY}}
+ \}
+\item 
+enum \mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6}{Game\+Result}} \{ \mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6a61f3c57b6943c85413975507aede78cd}{DRAW}}
+, \mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6aa27f913528645e7d6059540e77d5f49e}{CROSS\+\_\+\+WINS}}
+, \mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6a754bc2f0b0d988e5c2da7d1670213729}{CIRCLE\+\_\+\+WINS}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{board_8h_a01908f721c22cc7a2f149f266725805c}{Board\+\_\+init}} (\mbox{\hyperlink{board_8h_ae390693d85e5b060c294023d835bdb2b}{Square\+Change\+Callback}} on\+Square\+Change, \mbox{\hyperlink{board_8h_a00275da41eaed07f849c29364cad87ce}{End\+Of\+Game\+Callback}} on\+End\+Of\+Game)
+\item 
+void \mbox{\hyperlink{board_8h_ae14a2975197c0bec0affc25a535dd1ab}{Board\+\_\+free}} ()
+\item 
+\mbox{\hyperlink{board_8h_a9644515bdbb420ad692c02d3ec8de111}{Put\+Piece\+Result}} \mbox{\hyperlink{board_8h_adcaabd677f72247fc81c6ddd38696165}{Board\+\_\+put\+Piece}} (\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} x, \mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} y, \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} kind\+Of\+Piece)
+\item 
+\mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} \mbox{\hyperlink{board_8h_ac5cb780c9613e01233bedfa958f1b8af}{Board\+\_\+get\+Square\+Content}} (\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} x, \mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} y)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+This module handles the logic of the board of the tic tac toe game
+
+\begin{DoxyDate}{Date}
+6/10/2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Auteur}
+Jonathan ILIAS-\/\+PILLET \& Richard WOODWARD 
+\end{DoxyAuthor}
+
+
+Définition dans le fichier \mbox{\hyperlink{board_8h_source}{board.\+h}}.
+
+
+
+\doxysubsection{Documentation des définitions de type}
+\mbox{\Hypertarget{board_8h_a79ede347b7e8a561ab5a006d84859f74}\label{board_8h_a79ede347b7e8a561ab5a006d84859f74}} 
+\index{board.h@{board.h}!Coordinate@{Coordinate}}
+\index{Coordinate@{Coordinate}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{Coordinate}{Coordinate}}
+{\footnotesize\ttfamily typedef unsigned int \mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}}}
+
+A logic coordinate in the board. This can be used to handle a row or a column number starting at 0.
+
+Values must be between 0 and 2 included. 
+
+Définition à la ligne \mbox{\hyperlink{board_8h_source_l00021}{21}} du fichier \mbox{\hyperlink{board_8h_source}{board.\+h}}.
+
+\mbox{\Hypertarget{board_8h_a00275da41eaed07f849c29364cad87ce}\label{board_8h_a00275da41eaed07f849c29364cad87ce}} 
+\index{board.h@{board.h}!EndOfGameCallback@{EndOfGameCallback}}
+\index{EndOfGameCallback@{EndOfGameCallback}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{EndOfGameCallback}{EndOfGameCallback}}
+{\footnotesize\ttfamily typedef void($\ast$ End\+Of\+Game\+Callback) (\mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6}{Game\+Result}} result)}
+
+Pointer of a function that can be called when the game ends.
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em result} & result of the game (who wins or not) \\
+\hline
+\end{DoxyParams}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8h_source_l00068}{68}} du fichier \mbox{\hyperlink{board_8h_source}{board.\+h}}.
+
+\mbox{\Hypertarget{board_8h_ae390693d85e5b060c294023d835bdb2b}\label{board_8h_ae390693d85e5b060c294023d835bdb2b}} 
+\index{board.h@{board.h}!SquareChangeCallback@{SquareChangeCallback}}
+\index{SquareChangeCallback@{SquareChangeCallback}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{SquareChangeCallback}{SquareChangeCallback}}
+{\footnotesize\ttfamily typedef void($\ast$ Square\+Change\+Callback) (\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} x, \mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}} y, \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} new\+Content)}
+
+Pointer of a function that can be called when a square changes.
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em x} & the board\textquotesingle{}s column where the square is \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & the board\textquotesingle{}s row where the square is \\
+\hline
+\mbox{\texttt{ in}}  & {\em new\+Content} & the new square\textquotesingle{}s content \\
+\hline
+\end{DoxyParams}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8h_source_l00061}{61}} du fichier \mbox{\hyperlink{board_8h_source}{board.\+h}}.
+
+
+
+\doxysubsection{Documentation du type de l\textquotesingle{}énumération}
+\mbox{\Hypertarget{board_8h_a41741953d704b743544ce6383c27c7c6}\label{board_8h_a41741953d704b743544ce6383c27c7c6}} 
+\index{board.h@{board.h}!GameResult@{GameResult}}
+\index{GameResult@{GameResult}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{GameResult}{GameResult}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{board_8h_a41741953d704b743544ce6383c27c7c6}{Game\+Result}}}
+
+Winning status after the game has ended. \begin{DoxyEnumFields}{Valeurs énumérées}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DRAW@{DRAW}!board.h@{board.h}}\index{board.h@{board.h}!DRAW@{DRAW}}}\mbox{\Hypertarget{board_8h_a41741953d704b743544ce6383c27c7c6a61f3c57b6943c85413975507aede78cd}\label{board_8h_a41741953d704b743544ce6383c27c7c6a61f3c57b6943c85413975507aede78cd}} 
+DRAW&draw game, not player wins \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CROSS\_WINS@{CROSS\_WINS}!board.h@{board.h}}\index{board.h@{board.h}!CROSS\_WINS@{CROSS\_WINS}}}\mbox{\Hypertarget{board_8h_a41741953d704b743544ce6383c27c7c6aa27f913528645e7d6059540e77d5f49e}\label{board_8h_a41741953d704b743544ce6383c27c7c6aa27f913528645e7d6059540e77d5f49e}} 
+CROSS\+\_\+\+WINS&crosses player wins \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CIRCLE\_WINS@{CIRCLE\_WINS}!board.h@{board.h}}\index{board.h@{board.h}!CIRCLE\_WINS@{CIRCLE\_WINS}}}\mbox{\Hypertarget{board_8h_a41741953d704b743544ce6383c27c7c6a754bc2f0b0d988e5c2da7d1670213729}\label{board_8h_a41741953d704b743544ce6383c27c7c6a754bc2f0b0d988e5c2da7d1670213729}} 
+CIRCLE\+\_\+\+WINS&circles player wins \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8h_source_l00047}{47}} du fichier \mbox{\hyperlink{board_8h_source}{board.\+h}}.
+
+\mbox{\Hypertarget{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}\label{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}} 
+\index{board.h@{board.h}!PieceType@{PieceType}}
+\index{PieceType@{PieceType}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{PieceType}{PieceType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}}}
+
+A kind of piece.
+
+Note that this type has a special \char`\"{}void\char`\"{} value called NONE. \begin{DoxyEnumFields}{Valeurs énumérées}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NONE@{NONE}!board.h@{board.h}}\index{board.h@{board.h}!NONE@{NONE}}}\mbox{\Hypertarget{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ac157bdf0b85a40d2619cbc8bc1ae5fe2}\label{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ac157bdf0b85a40d2619cbc8bc1ae5fe2}} 
+NONE&used to tell there is no piece (a piece that has no kind is not a piece) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CROSS@{CROSS}!board.h@{board.h}}\index{board.h@{board.h}!CROSS@{CROSS}}}\mbox{\Hypertarget{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ad699bdf1731bd839b56c299536ba1d9d}\label{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ad699bdf1731bd839b56c299536ba1d9d}} 
+CROSS&a cross (\char`\"{}\+X\char`\"{}) piece \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CIRCLE@{CIRCLE}!board.h@{board.h}}\index{board.h@{board.h}!CIRCLE@{CIRCLE}}}\mbox{\Hypertarget{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021aa79c827759ea48f0735386c4b1188911}\label{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021aa79c827759ea48f0735386c4b1188911}} 
+CIRCLE&a circle (\char`\"{}\+O\char`\"{}) piece \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8h_source_l00028}{28}} du fichier \mbox{\hyperlink{board_8h_source}{board.\+h}}.
+
+\mbox{\Hypertarget{board_8h_a9644515bdbb420ad692c02d3ec8de111}\label{board_8h_a9644515bdbb420ad692c02d3ec8de111}} 
+\index{board.h@{board.h}!PutPieceResult@{PutPieceResult}}
+\index{PutPieceResult@{PutPieceResult}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{PutPieceResult}{PutPieceResult}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{board_8h_a9644515bdbb420ad692c02d3ec8de111}{Put\+Piece\+Result}}}
+
+Result of a piece put action (\begin{DoxySeeAlso}{Voir également}
+\mbox{\hyperlink{board_8h_adcaabd677f72247fc81c6ddd38696165}{Board\+\_\+put\+Piece}}) 
+\end{DoxySeeAlso}
+\begin{DoxyEnumFields}{Valeurs énumérées}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PIECE\_IN\_PLACE@{PIECE\_IN\_PLACE}!board.h@{board.h}}\index{board.h@{board.h}!PIECE\_IN\_PLACE@{PIECE\_IN\_PLACE}}}\mbox{\Hypertarget{board_8h_a9644515bdbb420ad692c02d3ec8de111afbde600ba9d56e1091a73a7f25b3b092}\label{board_8h_a9644515bdbb420ad692c02d3ec8de111afbde600ba9d56e1091a73a7f25b3b092}} 
+PIECE\+\_\+\+IN\+\_\+\+PLACE&no problem\+: the piece has been put in the specified square \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SQUARE\_IS\_NOT\_EMPTY@{SQUARE\_IS\_NOT\_EMPTY}!board.h@{board.h}}\index{board.h@{board.h}!SQUARE\_IS\_NOT\_EMPTY@{SQUARE\_IS\_NOT\_EMPTY}}}\mbox{\Hypertarget{board_8h_a9644515bdbb420ad692c02d3ec8de111abb1620f7287121bc15f0a161792322eb}\label{board_8h_a9644515bdbb420ad692c02d3ec8de111abb1620f7287121bc15f0a161792322eb}} 
+SQUARE\+\_\+\+IS\+\_\+\+NOT\+\_\+\+EMPTY&the specified square is not empty, then the piece has not been put \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8h_source_l00038}{38}} du fichier \mbox{\hyperlink{board_8h_source}{board.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{board_8h_ae14a2975197c0bec0affc25a535dd1ab}\label{board_8h_ae14a2975197c0bec0affc25a535dd1ab}} 
+\index{board.h@{board.h}!Board\_free@{Board\_free}}
+\index{Board\_free@{Board\_free}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{Board\_free()}{Board\_free()}}
+{\footnotesize\ttfamily void Board\+\_\+free (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+The board\textquotesingle{}s destructor.
+
+\begin{DoxyPrecond}{Précondition}
+the board must have been constructed 
+\end{DoxyPrecond}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8c_source_l00031}{31}} du fichier \mbox{\hyperlink{board_8c_source}{board.\+c}}.
+
+\mbox{\Hypertarget{board_8h_ac5cb780c9613e01233bedfa958f1b8af}\label{board_8h_ac5cb780c9613e01233bedfa958f1b8af}} 
+\index{board.h@{board.h}!Board\_getSquareContent@{Board\_getSquareContent}}
+\index{Board\_getSquareContent@{Board\_getSquareContent}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{Board\_getSquareContent()}{Board\_getSquareContent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} Board\+\_\+get\+Square\+Content (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}}}]{x,  }\item[{\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}}}]{y }\end{DoxyParamCaption})}
+
+Gives the content of a square
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em x} & logical column coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & logical row coordinate\\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Précondition}
+x must be in \mbox{[}0..2\mbox{]} 
+
+y must be in \mbox{[}0..2\mbox{]}
+\end{DoxyPrecond}
+\begin{DoxyReturn}{Renvoie}
+the square\textquotesingle{}s content (NONE if it\textquotesingle{}s empty) 
+\end{DoxyReturn}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8c_source_l00041}{41}} du fichier \mbox{\hyperlink{board_8c_source}{board.\+c}}.
+
+\mbox{\Hypertarget{board_8h_a01908f721c22cc7a2f149f266725805c}\label{board_8h_a01908f721c22cc7a2f149f266725805c}} 
+\index{board.h@{board.h}!Board\_init@{Board\_init}}
+\index{Board\_init@{Board\_init}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{Board\_init()}{Board\_init()}}
+{\footnotesize\ttfamily void Board\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_ae390693d85e5b060c294023d835bdb2b}{Square\+Change\+Callback}}}]{on\+Square\+Change,  }\item[{\mbox{\hyperlink{board_8h_a00275da41eaed07f849c29364cad87ce}{End\+Of\+Game\+Callback}}}]{on\+End\+Of\+Game }\end{DoxyParamCaption})}
+
+The board\textquotesingle{}s constructor.
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em on\+Square\+Change} & address of the function that will be called each time a square changes (can be NULL if unused) \\
+\hline
+\mbox{\texttt{ in}}  & {\em on\+End\+Of\+Game} & address of the function that will be called when the end of game happens \\
+\hline
+\end{DoxyParams}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8c_source_l00026}{26}} du fichier \mbox{\hyperlink{board_8c_source}{board.\+c}}.
+
+\mbox{\Hypertarget{board_8h_adcaabd677f72247fc81c6ddd38696165}\label{board_8h_adcaabd677f72247fc81c6ddd38696165}} 
+\index{board.h@{board.h}!Board\_putPiece@{Board\_putPiece}}
+\index{Board\_putPiece@{Board\_putPiece}!board.h@{board.h}}
+\doxysubsubsection{\texorpdfstring{Board\_putPiece()}{Board\_putPiece()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{board_8h_a9644515bdbb420ad692c02d3ec8de111}{Put\+Piece\+Result}} Board\+\_\+put\+Piece (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}}}]{x,  }\item[{\mbox{\hyperlink{board_8h_a79ede347b7e8a561ab5a006d84859f74}{Coordinate}}}]{y,  }\item[{\mbox{\hyperlink{board_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}}}]{kind\+Of\+Piece }\end{DoxyParamCaption})}
+
+Requests a piece placement into a specified square.
+
+
+\begin{DoxyParams}[1]{Paramètres}
+\mbox{\texttt{ in}}  & {\em x} & logical column coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & logical row coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em kind\+Of\+Piece} & type of the piece (CROSS or CIRCLE)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Précondition}
+kind\+Of\+Piece must not be \char`\"{}\+NONE\char`\"{} 
+
+x must be in \mbox{[}0..2\mbox{]} 
+
+y must be in \mbox{[}0..2\mbox{]}
+\end{DoxyPrecond}
+
+\begin{DoxyRetVals}{Valeurs retournées}
+{\em PIECE\+\_\+\+IN\+\_\+\+PLACE} & the piece has been put in the square \\
+\hline
+{\em SQUARE\+\_\+\+IS\+\_\+\+NOT\+\_\+\+EMPTY} & the piece cannot be put in the square as there is already one \\
+\hline
+\end{DoxyRetVals}
+
+
+Définition à la ligne \mbox{\hyperlink{board_8c_source_l00036}{36}} du fichier \mbox{\hyperlink{board_8c_source}{board.\+c}}.
+
