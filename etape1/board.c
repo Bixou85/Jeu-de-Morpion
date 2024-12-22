@@ -1,8 +1,10 @@
 #include "board.h"
 #include <assert.h>
-#include <stdio.h>
+#include <stdio.h> // Penser à le retirer
 
 PieceType board[3][3];
+SquareChangeCallback boardOnSquareChange;
+EndOfGameCallback boardOnEndOfGame;
 GameResult result;
 
 /**
@@ -55,19 +57,30 @@ static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastC
   return result;
 }
 
+void Board_init (SquareChangeCallback onSquareChange, EndOfGameCallback onEndOfGame)
+{
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      board[i][j] = NONE;
+    }
+  }
 
-// void Board_init (SquareChangeCallback onSquareChange, EndOfGameCallback onEndOfGame)
-// {
-//   // TODO: à compléter
-// }
+  boardOnSquareChange = onSquareChange;
+  boardOnEndOfGame = onEndOfGame;
+}
 
-// void Board_free ()
-// {
-//   // TODO: à compléter
-// }
+void Board_free ()
+{
+	for (int i = 0; i < 3; ++i) {
+		for (int j = 0; j < 3; ++j) {
+      board[i][j] = NONE;
+    }
+	}
+}
 
-PutPieceResult Board_putPiece (Coordinate x, Coordinate y, PieceType kindOfPiece){
-  if (x<0 || x>2 || y<0 || y>2 || kindOfPiece==NONE){
+PutPieceResult Board_putPiece (Coordinate x, Coordinate y, PieceType kindOfPiece)
+{
+  if (x < 0 || x > 2 || y < 0 || y > 2 || kindOfPiece == NONE){
     return SQUARE_IS_NOT_EMPTY;
   }
   if (board[y][x]==NONE){
@@ -80,7 +93,8 @@ PutPieceResult Board_putPiece (Coordinate x, Coordinate y, PieceType kindOfPiece
   }
 }
 
-// PieceType Board_getSquareContent (Coordinate x, Coordinate y)
-// {
-//   // TODO: à compléter
-// }
+PieceType Board_getSquareContent (Coordinate x, Coordinate y)
+{
+  if (x > 2 || x < 0 || y > 2 || y < 0) return NONE;
+  return board[y][x];
+}
