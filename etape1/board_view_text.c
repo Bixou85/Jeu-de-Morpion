@@ -4,8 +4,6 @@
 
 #if defined CONFIG_TEXTUI
 
-extern PieceType board[3][3];
-
 char boardText[5][5] = {
   {' ', '|', ' ', '|', ' '},
   {'_', '|', '_', '|', '_'},
@@ -16,10 +14,30 @@ char boardText[5][5] = {
 
 void BoardView_init (void)
 {
+  for (int i = 0; i < 3; ++i) {
+		for (int j = 0; j < 3; ++j) {
+      switch (Board_getSquareContent(i, j)) {
+        case CROSS:
+          boardText[i * 2][j * 2] = 'X';
+          break;
+        case CIRCLE:
+          boardText[i * 2][j * 2] = 'O';
+          break;
+        default:
+          boardText[i * 2][j * 2] = ' ';
+          break;
+      }
+		}
+	}
 }
 
 void BoardView_free (void)
 {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+			boardText[i*2][j*2] = ' ';
+		}
+	}
 }
 
 void BoardView_displayAll (void)
@@ -38,14 +56,18 @@ void BoardView_displaySquare (Coordinate x, Coordinate y, PieceType kindOfPiece)
   char placedPiece;
   switch (kindOfPiece) {
     case CROSS:
-      placedPiece = "X";
+      placedPiece = 'X';
       break;
 
     case CIRCLE:
-      placedPiece = "O";
+      placedPiece = 'O';
+      break;
+    
+    default: 
+      placedPiece = ' ';
       break;
   }
-  boardText[x][y] = placedPiece;
+  boardText[x * 2][y * 2] = placedPiece;
 	BoardView_displayAll();
 }
 
@@ -66,7 +88,7 @@ void BoardView_displayEndOfGame (GameResult result)
     break;
 
   default:
-    puts("Gagnant invalide")
+    puts("Gagnant invalide");
     break;
   }
 }

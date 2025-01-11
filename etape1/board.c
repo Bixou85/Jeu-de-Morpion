@@ -2,6 +2,9 @@
 #include <assert.h>
 #include <stdio.h> // Penser à le retirer
 
+#define LIGNES 3
+#define COLONNES 3
+
 PieceType board[3][3];
 SquareChangeCallback boardOnSquareChange;
 EndOfGameCallback boardOnEndOfGame;
@@ -27,8 +30,8 @@ GameResult result;
 static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastChangeX, Coordinate lastChangeY, GameResult *gameResult)
 {
   bool result = false, empty_case = false;
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
+  for (int i = 0; i < LIGNES; i++) {
+    for (int j = 0; j < COLONNES; j++) {
       if (boardSquares[i][j] == NONE) {
         empty_case = true;
       }
@@ -59,8 +62,8 @@ static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastC
 
 void Board_init (SquareChangeCallback onSquareChange, EndOfGameCallback onEndOfGame)
 {
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
+  for (int i = 0; i < LIGNES; i++) {
+    for (int j = 0; j < COLONNES; j++) {
       board[i][j] = NONE;
     }
   }
@@ -71,8 +74,8 @@ void Board_init (SquareChangeCallback onSquareChange, EndOfGameCallback onEndOfG
 
 void Board_free ()
 {
-	for (int i = 0; i < 3; ++i) {
-		for (int j = 0; j < 3; ++j) {
+	for (int i = 0; i < LIGNES; ++i) {
+		for (int j = 0; j < COLONNES; ++j) {
       board[i][j] = NONE;
     }
 	}
@@ -85,7 +88,10 @@ PutPieceResult Board_putPiece (Coordinate x, Coordinate y, PieceType kindOfPiece
   }
   if (board[y][x]==NONE){
     board[y][x]=kindOfPiece;
-    bool gameFinished = isGameFinished(board, x, y, &result);
+    boardOnSquareChange(x, y, kindOfPiece);
+    if (isGameFinished(board, x, y, &result)) {
+      boardOnEndOfGame(result);
+    }
     return PIECE_IN_PLACE;
   }
   else {
