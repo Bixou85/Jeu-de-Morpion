@@ -29,7 +29,7 @@ GameResult result;
 
 static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastChangeX, Coordinate lastChangeY, GameResult *gameResult)
 {
-  bool result = false, empty_case = false;
+  bool result_returned = false, empty_case = false;
   for (int i = 0; i < LIGNES; i++) {
     for (int j = 0; j < COLONNES; j++) {
       if (boardSquares[i][j] == NONE) {
@@ -38,26 +38,26 @@ static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastC
     }
   }
   if (!empty_case) {
-    result = true;
+    result_returned = true;
     *gameResult = DRAW;
   }
 
   for (PieceType i = CROSS; i <= CIRCLE; i++) {
     if (boardSquares[lastChangeY][0] == i && boardSquares[lastChangeY][1] == i && boardSquares[lastChangeY][2] == i) { //vérification de la ligne
       *gameResult = i;
-      result = true;
-    } else if (boardSquares[1][lastChangeX] == i && boardSquares[1][lastChangeX] == i && boardSquares[2][lastChangeX] == i) { //vérification de la colonne
+      result_returned = true;
+    } else if (boardSquares[0][lastChangeX] == i && boardSquares[1][lastChangeX] == i && boardSquares[2][lastChangeX] == i) { //vérification de la colonne
       *gameResult = i;
-      result = true;
+      result_returned = true;
     } else if (boardSquares[0][0] == i && boardSquares[1][1] == i && boardSquares[2][2] == i) { //vérification de la première diagonale
       *gameResult = i;
-      result = true;
+      result_returned = true;
     } else if (boardSquares[2][0] == i && boardSquares[1][1] == i && boardSquares[0][2] == i) { //vérification de la seconde diagonale
       *gameResult = i;
-      result = true;
+      result_returned = true;
     }
   }
-  return result;
+  return result_returned;
 }
 
 void Board_init (SquareChangeCallback onSquareChange, EndOfGameCallback onEndOfGame)

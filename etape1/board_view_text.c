@@ -1,7 +1,7 @@
 #include "board_view.h"
 #include <assert.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 #if defined CONFIG_TEXTUI
 
 char boardText[5][5] = {
