@@ -8,8 +8,8 @@
 #include "board_view.h"
 #include <assert.h>
 #include <stdio.h>
-#include <SDL.h>
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "tictactoe_errors.h"
 
 #if defined CONFIG_SDLUI
@@ -51,13 +51,13 @@ void BoardView_init (void)
 		}
 
 		// Loads images
-		BackgroundImage = IMG_Load ("background.png");
+		BackgroundImage = IMG_Load ("../etape3/background.png");
 		if (BackgroundImage == NULL)
 					fatalError(IMG_GetError ());
-		SpriteO = IMG_Load ("sprite_O.png");
+		SpriteO = IMG_Load ("../etape3/sprite_O.png");
 		if (SpriteO == NULL)
 					fatalError(IMG_GetError ());
-		SpriteX = IMG_Load ("sprite_X.png");
+		SpriteX = IMG_Load ("../etape3/sprite_X.png");
 		if (SpriteX == NULL)
 			fatalError(IMG_GetError ());
 
@@ -74,6 +74,7 @@ void BoardView_init (void)
 		{
 			fatalError(SDL_GetError());
 		}
+		BoardView_displayAll();
 }
 
 void BoardView_free (void)
@@ -89,32 +90,63 @@ void BoardView_free (void)
 
 void BoardView_displayAll (void)
 {
-	/* utiliser "renderImage" pour afficher l'image de fond "BackgroundImage",
-	 * puis afficher l'ensemble des cases à l'aide de la fonction BoardView_displaySquare
-	 */
+    // Utiliser "renderImage" pour afficher l'image de fond "BackgroundImage"
+    renderImage(BackgroundImage, 0, 0); // Ajuster les coordonnées si nécessaire
+
+    // Afficher l'ensemble des cases à l'aide de la fonction BoardView_displaySquare
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            BoardView_displaySquare(i, j, Board_getSquareContent(i, j));
+        }
+    }
 }
 
 void BoardView_displaySquare (Coordinate x, Coordinate y, PieceType kindOfPiece)
 {
-	/* utiliser "renderImage" pour afficher le sprite correspondant à kindOfPiece à
-	 * l'endroit correspondant aux coordonnées logiques "x" et "y".
-	 */
-
+    SDL_Surface *currentSprite = NULL;
+    switch (kindOfPiece) {
+        case CROSS:
+            currentSprite = SpriteX;
+            break;
+        case CIRCLE:
+            currentSprite = SpriteO;
+            break;
+        default:
+            return; // Si la case est vide, ne rien afficher
+    }
+    renderImage(currentSprite, x * 160, y * 160); // Ajuster les coordonnées si nécessaire
 }
 
 void BoardView_displayEndOfGame (GameResult result)
 {
-	SDL_Delay (2000); // TODO: vous pouvez améliorer ceci (lorsque le reste fonctionnera)
+    const char *message = NULL;
+    switch (result) {
+        case CIRCLE_WINS:
+            message = "Les cercles ont gagné !";
+            break;
+        case CROSS_WINS:
+            message = "Les croix ont gagné !";
+            break;
+        case DRAW:
+            message = "Match nul !";
+            break;
+        default:
+            message = "Résultat inconnu";
+            break;
+    }
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Fin du jeu", message, MainWindow);
+    SDL_Delay(2000); // Attente de 2 secondes avant de continuer
 }
 
 void BoardView_displayPlayersTurn (PieceType thisPlayer)
 {
-	// TODO: vous pouvez améliorer ceci (lorsque le reste fonctionnera)
+    const char *message = (thisPlayer == CROSS) ? "Tour des croix" : "Tour des cercles";
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Tour du joueur", message, MainWindow);
 }
 
 void BoardView_sayCannotPutPiece (void)
 {
-	// TODO: vous pouvez améliorer ceci (lorsque le reste fonctionnera)
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Erreur", "Placement interdit !", MainWindow);
 }
 
 #endif // defined CONFIG_SDLUI
