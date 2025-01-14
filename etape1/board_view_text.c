@@ -1,7 +1,6 @@
 #include "board_view.h"
 #include <assert.h>
 #include <stdio.h>
-#include <stdlib.h>
 #if defined CONFIG_TEXTUI
 
 char boardText[5][5] = {
@@ -14,30 +13,11 @@ char boardText[5][5] = {
 
 void BoardView_init (void)
 {
-  for (int i = 0; i < 3; ++i) {
-		for (int j = 0; j < 3; ++j) {
-      switch (Board_getSquareContent(i, j)) {
-        case CROSS:
-          boardText[i * 2][j * 2] = 'X';
-          break;
-        case CIRCLE:
-          boardText[i * 2][j * 2] = 'O';
-          break;
-        default:
-          boardText[i * 2][j * 2] = ' ';
-          break;
-      }
-		}
-	}
+  BoardView_displayAll();
 }
 
 void BoardView_free (void)
 {
-  for (int i = 0; i < 3; ++i) {
-    for (int j = 0; j < 3; ++j) {
-			boardText[i*2][j*2] = ' ';
-		}
-	}
 }
 
 void BoardView_displayAll (void)
@@ -63,33 +43,33 @@ void BoardView_displaySquare (Coordinate x, Coordinate y, PieceType kindOfPiece)
       placedPiece = 'O';
       break;
     
-    default: 
+    default:
       placedPiece = ' ';
       break;
   }
+
   boardText[x * 2][y * 2] = placedPiece;
 	BoardView_displayAll();
 }
 
 void BoardView_displayEndOfGame (GameResult result)
 {
-  BoardView_displayAll();
   switch (result) {
-  case CIRCLE_WINS:
-    puts("Les cercles ont gagné");
-    break;
+    case CIRCLE_WINS:
+      puts("Les cercles ont gagné");
+      break;
 
-  case CROSS_WINS:
-    puts("Les croix ont gagné");
-    break;
+    case CROSS_WINS:
+      puts("Les croix ont gagné");
+      break;
 
-  case DRAW:
-    puts("Aucun gagnant");
-    break;
+    case DRAW:
+      puts("Aucun gagnant");
+      break;
 
-  default:
-    puts("Gagnant invalide");
-    break;
+    default:
+      puts("Gagnant invalide");
+      break;
   }
 }
 
@@ -108,6 +88,7 @@ void BoardView_displayPlayersTurn (PieceType thisPlayer)
       puts("Tour de joueur invalide");
       break;
   }
+  printf("Entrez les coordonnées de votre coup (ligne colonne) : ");
 }
 
 void BoardView_sayCannotPutPiece (void)

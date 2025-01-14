@@ -16,7 +16,6 @@ int i;
 
 void PlayerManager_init (void)
 {
-	currentPlayer = CROSS;
 	i = 0;
 }
 
@@ -42,6 +41,7 @@ void PlayerManager_oneTurn (void)
 	int test_y[9] = {1,0,0,1,1,2,0,2,2};
 #endif
 
+	printf("Coup joué automatiquement x: %d, y: %d\n", test_x[i], test_y[i]);
 	Board_putPiece(test_x[i], test_y[i], currentPlayer);
 	switch (currentPlayer) {
 		case CROSS:

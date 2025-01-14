@@ -1,6 +1,5 @@
 #include "board.h"
 #include <assert.h>
-#include <stdio.h> // Penser à le retirer
 
 #define LIGNES 3
 #define COLONNES 3
