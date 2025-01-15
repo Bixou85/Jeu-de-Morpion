@@ -71,7 +71,7 @@ void BoardView_init (void)
     // Create the main renderer
     MainRenderer = SDL_CreateRenderer(MainWindow, -1, SDL_RENDERER_ACCELERATED);
     if (MainRenderer == NULL) {
-        fatalError(SDL_GetError())
+        fatalError(SDL_GetError());
     }
     BoardView_displayAll();  // Display the initial board
 }
