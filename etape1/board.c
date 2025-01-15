@@ -29,50 +29,61 @@ GameResult result;
 static bool isGameFinished (const PieceType boardSquares[3][3], Coordinate lastChangeX, Coordinate lastChangeY, GameResult *gameResult)
 {
   bool result_returned = false, empty_case = false;
+  
+  // Check if there are any empty squares left
   for (int i = 0; i < LIGNES; i++) {
     for (int j = 0; j < COLONNES; j++) {
-      if (boardSquares[i][j] == NONE) {
-        empty_case = true;
+      if (boardSquares[j][i] == NONE) {
+        empty_case = true;  // Found an empty square
       }
     }
   }
   if (!empty_case) {
     result_returned = true;
-    *gameResult = DRAW;
+    *gameResult = DRAW;  // No empty squares and no winner means the game is a draw
   }
 
+  // Check for winning conditions (line, column, and diagonals)
   for (PieceType i = CROSS; i <= CIRCLE; i++) {
-    if (boardSquares[lastChangeY][0] == i && boardSquares[lastChangeY][1] == i && boardSquares[lastChangeY][2] == i) { //vérification de la ligne
+    if (boardSquares[lastChangeY][0] == i && boardSquares[lastChangeY][1] == i && boardSquares[lastChangeY][2] == i) {
+      // Check the row of the last placed piece
       *gameResult = i;
       result_returned = true;
-    } else if (boardSquares[0][lastChangeX] == i && boardSquares[1][lastChangeX] == i && boardSquares[2][lastChangeX] == i) { //vérification de la colonne
+    } else if (boardSquares[0][lastChangeX] == i && boardSquares[1][lastChangeX] == i && boardSquares[2][lastChangeX] == i) {
+      // Check the column of the last placed piece
       *gameResult = i;
       result_returned = true;
-    } else if (boardSquares[0][0] == i && boardSquares[1][1] == i && boardSquares[2][2] == i) { //vérification de la première diagonale
+    } else if (boardSquares[0][0] == i && boardSquares[1][1] == i && boardSquares[2][2] == i) {
+      // Check the first diagonal
       *gameResult = i;
       result_returned = true;
-    } else if (boardSquares[2][0] == i && boardSquares[1][1] == i && boardSquares[0][2] == i) { //vérification de la seconde diagonale
+    } else if (boardSquares[2][0] == i && boardSquares[1][1] == i && boardSquares[0][2] == i) {
+      // Check the second diagonal
       *gameResult = i;
       result_returned = true;
     }
   }
-  return result_returned;
+  return result_returned;  // Return whether the game is finished
 }
 
 void Board_init (SquareChangeCallback onSquareChange, EndOfGameCallback onEndOfGame)
 {
+  // Initialize the board with NONE (empty squares)
   for (int i = 0; i < LIGNES; i++) {
     for (int j = 0; j < COLONNES; j++) {
       board[i][j] = NONE;
     }
   }
 
+  // The callback function to be called when a square changes
   boardOnSquareChange = onSquareChange;
+  // The callback function to be called when the game ends
   boardOnEndOfGame = onEndOfGame;
 }
 
 void Board_free ()
 {
+  // Reset the board to empty state
 	for (int i = 0; i < LIGNES; ++i) {
 		for (int j = 0; j < COLONNES; ++j) {
       board[i][j] = NONE;
@@ -82,24 +93,29 @@ void Board_free ()
 
 PutPieceResult Board_putPiece (Coordinate x, Coordinate y, PieceType kindOfPiece)
 {
-  if (x < 0 || x > 2 || y < 0 || y > 2 || kindOfPiece == NONE){
+  // Validate coordinates and piece type
+  if (x < 0 || x > 2 || y < 0 || y > 2 || kindOfPiece == NONE) {
     return SQUARE_IS_NOT_EMPTY;
   }
-  if (board[y][x]==NONE){
-    board[y][x]=kindOfPiece;
+  
+  // Check if the square is empty
+  if (Board_getSquareContent(x, y) == NONE) {
+    board[y][x] = kindOfPiece;
     boardOnSquareChange(x, y, kindOfPiece);
+    
+    // Check if the game is finished after placing the piece
     if (isGameFinished(board, x, y, &result)) {
       boardOnEndOfGame(result);
     }
     return PIECE_IN_PLACE;
-  }
-  else {
+  } else {
     return SQUARE_IS_NOT_EMPTY;
   }
 }
 
 PieceType Board_getSquareContent (Coordinate x, Coordinate y)
 {
+  // Validate coordinates
   if (x > 2 || x < 0 || y > 2 || y < 0) return NONE;
   return board[y][x];
 }

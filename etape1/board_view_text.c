@@ -47,8 +47,9 @@ void BoardView_displaySquare (Coordinate x, Coordinate y, PieceType kindOfPiece)
       placedPiece = ' ';
       break;
   }
-
+  // Update the boardText array with the placed piece
   boardText[x * 2][y * 2] = placedPiece;
+  // Display the updated board
 	BoardView_displayAll();
 }
 

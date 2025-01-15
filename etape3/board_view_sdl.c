@@ -22,59 +22,58 @@ static SDL_Surface *SpriteX;
 
 static void renderImage (SDL_Surface *image, int x, int y)
 {
-	SDL_Texture *aTexture;
-	aTexture = SDL_CreateTextureFromSurface(MainRenderer, image);
-	assert (aTexture != NULL);
-	SDL_Rect pos = {x, y, image->w, image->h};
-	SDL_RenderCopy(MainRenderer, aTexture, 0, &pos);
-	SDL_RenderPresent(MainRenderer);
-	SDL_DestroyTexture(aTexture);
+    SDL_Texture *aTexture;
+    aTexture = SDL_CreateTextureFromSurface(MainRenderer, image);
+    assert (aTexture != NULL);  // Ensure the texture was created successfully
+    SDL_Rect pos = {x, y, image->w, image->h};  // Define the position and size of the image
+    SDL_RenderCopy(MainRenderer, aTexture, 0, &pos);  // Copy the image to the renderer
+    SDL_RenderPresent(MainRenderer);  // Update the screen with the rendered image
+    SDL_DestroyTexture(aTexture);  // Clean up the texture
 }
 
 void BoardView_init (void)
 {
-		int result;
+    int result;
 
-		// Initialize SDL
-		result = SDL_Init (SDL_INIT_VIDEO);
-		if (result != 0)
-		{
-			fatalError (SDL_GetError ());
-		}
-		atexit (SDL_Quit);
+    // Initialize SDL
+    result = SDL_Init (SDL_INIT_VIDEO);
+    if (result != 0) {
+        fatalError (SDL_GetError ());  // Handle initialization error
+    }
+    atexit (SDL_Quit);  // Ensure SDL quits when the program exits
 
-		// Initialize SDL_image
-		int initted=IMG_Init(IMG_INIT_PNG);
-		if (initted != IMG_INIT_PNG)
-		{
-			fatalError(IMG_GetError ());
-		}
+    // Initialize SDL_image
+    int initted = IMG_Init(IMG_INIT_PNG);
+    if (initted != IMG_INIT_PNG) {
+        fatalError(IMG_GetError ());  // Handle initialization error
+    }
 
-		// Loads images
-		BackgroundImage = IMG_Load ("../etape3/background.png");
-		if (BackgroundImage == NULL)
-					fatalError(IMG_GetError ());
-		SpriteO = IMG_Load ("../etape3/sprite_O.png");
-		if (SpriteO == NULL)
-					fatalError(IMG_GetError ());
-		SpriteX = IMG_Load ("../etape3/sprite_X.png");
-		if (SpriteX == NULL)
-			fatalError(IMG_GetError ());
+    // Load images
+    BackgroundImage = IMG_Load ("../etape3/background.png");
+    if (BackgroundImage == NULL) {
+        fatalError(IMG_GetError ());  // Handle image loading error
+    }
+    SpriteO = IMG_Load ("../etape3/sprite_O.png");
+    if (SpriteO == NULL) {
+        fatalError(IMG_GetError ());  // Handle image loading error
+    }
+    SpriteX = IMG_Load ("../etape3/sprite_X.png");
+    if (SpriteX == NULL) {
+        fatalError(IMG_GetError ());  // Handle image loading error
+    }
 
-		// Creates the window
-		MainWindow = SDL_CreateWindow ("Tic Tac Toe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 480, 480, 0);
-		if (MainWindow == NULL)
-		{
-			fatalError (SDL_GetError ());
-		}
+    // Create the window
+    MainWindow = SDL_CreateWindow ("Tic Tac Toe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 480, 480, 0);
+    if (MainWindow == NULL) {
+        fatalError (SDL_GetError ());  // Handle window creation error
+    }
 
-		// Creates the main renderer
-		MainRenderer = SDL_CreateRenderer(MainWindow, -1, SDL_RENDERER_ACCELERATED);
-		if (MainRenderer == NULL)
-		{
-			fatalError(SDL_GetError());
-		}
-		BoardView_displayAll();
+    // Create the main renderer
+    MainRenderer = SDL_CreateRenderer(MainWindow, -1, SDL_RENDERER_ACCELERATED);
+    if (MainRenderer == NULL) {
+        fatalError(SDL_GetError());  // Handle renderer creation error
+    }
+    BoardView_displayAll();  // Display the initial board
 }
 
 void BoardView_free (void)
@@ -90,10 +89,10 @@ void BoardView_free (void)
 
 void BoardView_displayAll (void)
 {
-    // Utiliser "renderImage" pour afficher l'image de fond "BackgroundImage"
-    renderImage(BackgroundImage, 0, 0); // Ajuster les coordonnées si nécessaire
+    // Render the background image
+    renderImage(BackgroundImage, 0, 0);  // Adjust coordinates if necessary
 
-    // Afficher l'ensemble des cases à l'aide de la fonction BoardView_displaySquare
+    // Display all board squares
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             BoardView_displaySquare(i, j, Board_getSquareContent(i, j));
@@ -112,9 +111,9 @@ void BoardView_displaySquare (Coordinate x, Coordinate y, PieceType kindOfPiece)
             currentSprite = SpriteO;
             break;
         default:
-            return; // Si la case est vide, ne rien afficher
+            return;  // If the square is empty, do nothing
     }
-    renderImage(currentSprite, x * 160, y * 160); // Ajuster les coordonnées si nécessaire
+    renderImage(currentSprite, x * 160, y * 160);  // Adjust coordinates if necessary
 }
 
 void BoardView_displayEndOfGame (GameResult result)
@@ -134,18 +133,21 @@ void BoardView_displayEndOfGame (GameResult result)
             message = "Résultat inconnu";
             break;
     }
+    // Show a message box with the end of game result
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Fin du jeu", message, MainWindow);
-    SDL_Delay(2000); // Attente de 2 secondes avant de continuer
+    SDL_Delay(2000);  // Wait for 2 seconds before continuing
 }
 
 void BoardView_displayPlayersTurn (PieceType thisPlayer)
 {
     const char *message = (thisPlayer == CROSS) ? "Tour des croix" : "Tour des cercles";
+    // Show a message box indicating whose turn it is
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Tour du joueur", message, MainWindow);
 }
 
 void BoardView_sayCannotPutPiece (void)
 {
+    // Show a message box indicating an invalid move
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Erreur", "Placement interdit !", MainWindow);
 }
 

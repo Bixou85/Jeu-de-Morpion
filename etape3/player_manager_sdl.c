@@ -13,26 +13,26 @@
 
 #if defined CONFIG_PLAYER_MANAGER_SDL
 
-static PieceType currentPlayer;
+static PieceType currentPlayer;  // Variable to keep track of the current player
 
 void PlayerManager_init (void)
 {
-    assert(SDL_WasInit(SDL_INIT_VIDEO) != 0);
-    currentPlayer = CROSS;  // Initialiser le premier joueur à CROIX
+    assert(SDL_WasInit(SDL_INIT_VIDEO) != 0);  // Ensure SDL is initialized for video
+    currentPlayer = CIRCLE;  // Initialize the first player to CROSS
 }
 
 void PlayerManager_free (void)
 {
-    // Actuellement, rien de spécial à libérer, mais vous pouvez ajouter des opérations de nettoyage si nécessaire à l'avenir.
+    // No special resources to free in this implementation
 }
 
 static bool tryMove (int x, int y)
 {
     if (Board_getSquareContent(x, y) == NONE) {
-        Board_putPiece(x, y, currentPlayer);
+        Board_putPiece(x, y, currentPlayer);  // Place the piece on the board
         return true;
     } else {
-        BoardView_sayCannotPutPiece();
+        BoardView_sayCannotPutPiece();  // Inform the player that the move is invalid
         return false;
     }
 }
@@ -46,25 +46,25 @@ void PlayerManager_oneTurn (void)
     do
     {
         validMove = false;
-        error = SDL_WaitEvent(&event);
-        assert(error == 1);
+        error = SDL_WaitEvent(&event);  // Wait for an event (mouse click, window close, etc.)
+        assert(error == 1);  // Ensure the event was successfully retrieved
         switch (event.type)
         {
             case SDL_WINDOWEVENT:
                 if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
-                    SDL_Quit();
+                    BoardView_free();  // Free board view resources and exit the application if SDL_QUIT event occurs
                     exit(0);
                 }
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT) {
-                    int x = event.button.x / 160;  // Convertir les coordonnées de la souris en coordonnées de grille
-                    int y = event.button.y / 160;
-                    validMove = tryMove(x, y);
+                    int x = event.button.x / 160;  // Convert mouse x-coordinate to grid x-coordinate
+                    int y = event.button.y / 160;  // Convert mouse y-coordinate to grid y-coordinate
+                    validMove = tryMove(x, y);  // Try to make the move
                     if (validMove) {
-                        BoardView_displaySquare(x, y, currentPlayer);
-                        // Changement de joueur
+                        BoardView_displaySquare(x, y, currentPlayer);  // Display the piece on the board
+                        // Switch the player after a successful move
                         if (currentPlayer == CROSS) {
                             currentPlayer = CIRCLE;
                         } else {
@@ -75,12 +75,12 @@ void PlayerManager_oneTurn (void)
                 break;
 
             case SDL_QUIT:
-                SDL_Quit();
+                BoardView_free();  // Free board view resources and exit the application if SDL_QUIT event occurs
                 exit(0);
                 break;
         }
     }
-    while (!validMove);
+    while (!validMove);  // Continue until a valid move is made
 }
 
-#endif // defined CONFIG_PLAYER_MANAGER_SCANF
+#endif // defined CONFIG_PLAYER_MANAGER_SDL

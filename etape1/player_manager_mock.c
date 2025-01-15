@@ -11,12 +11,13 @@
 
 #if defined CONFIG_PLAYER_MANAGER_MOCK
 
-PieceType currentPlayer;
-int i;
+PieceType currentPlayer;  // Variable to keep track of the current player
+int i;  // Index to track the turn number
 
 void PlayerManager_init (void)
 {
-	i = 0;
+	currentPlayer = CROSS; // Set current player to CROSS
+    i = 0;  // Set the turn index to 0
 }
 
 void PlayerManager_free (void)
@@ -41,8 +42,11 @@ void PlayerManager_oneTurn (void)
 	int test_y[9] = {1,0,0,1,1,2,0,2,2};
 #endif
 
-	printf("Coup joué automatiquement x: %d, y: %d\n", test_x[i], test_y[i]);
-	Board_putPiece(test_x[i], test_y[i], currentPlayer);
+    // Print the move coordinates
+    printf("Coup joué automatiquement x: %d, y: %d\n", test_x[i], test_y[i]);
+    // Place the piece on the board
+    Board_putPiece(test_x[i], test_y[i], currentPlayer);
+    // Switch the player after the move
 	switch (currentPlayer) {
 		case CROSS:
 			currentPlayer = CIRCLE;
