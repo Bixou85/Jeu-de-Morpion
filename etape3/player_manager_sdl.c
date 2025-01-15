@@ -18,7 +18,7 @@ static PieceType currentPlayer;  // Variable to keep track of the current player
 void PlayerManager_init (void)
 {
     assert(SDL_WasInit(SDL_INIT_VIDEO) != 0);  // Ensure SDL is initialized for video
-    currentPlayer = CIRCLE;  // Initialize the first player to CROSS
+    currentPlayer = CROSS;  // Initialize the first player to CROSS
 }
 
 void PlayerManager_free (void)
@@ -43,13 +43,15 @@ void PlayerManager_oneTurn (void)
     SDL_Event event;
     bool validMove;
 
-    do
-    {
+    // That line is fonctionnal but it's not very fun
+    // We intuitively know the next player to play
+    // BoardView_displayPlayersTurn(currentPlayer);
+
+    do {
         validMove = false;
         error = SDL_WaitEvent(&event);  // Wait for an event (mouse click, window close, etc.)
         assert(error == 1);  // Ensure the event was successfully retrieved
-        switch (event.type)
-        {
+        switch (event.type) {
             case SDL_WINDOWEVENT:
                 if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
                     BoardView_free();  // Free board view resources and exit the application if SDL_QUIT event occurs
@@ -63,7 +65,6 @@ void PlayerManager_oneTurn (void)
                     int y = event.button.y / 160;  // Convert mouse y-coordinate to grid y-coordinate
                     validMove = tryMove(x, y);  // Try to make the move
                     if (validMove) {
-                        BoardView_displaySquare(x, y, currentPlayer);  // Display the piece on the board
                         // Switch the player after a successful move
                         if (currentPlayer == CROSS) {
                             currentPlayer = CIRCLE;

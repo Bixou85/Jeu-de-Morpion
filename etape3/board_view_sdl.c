@@ -91,13 +91,6 @@ void BoardView_displayAll (void)
 {
     // Render the background image
     renderImage(BackgroundImage, 0, 0);
-
-    // Display all board squares
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            BoardView_displaySquare(i, j, Board_getSquareContent(i, j));
-        }
-    }
 }
 
 void BoardView_displaySquare (Coordinate x, Coordinate y, PieceType kindOfPiece)
