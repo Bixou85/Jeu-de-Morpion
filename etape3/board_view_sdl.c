@@ -38,40 +38,40 @@ void BoardView_init (void)
     // Initialize SDL
     result = SDL_Init (SDL_INIT_VIDEO);
     if (result != 0) {
-        fatalError (SDL_GetError ());  // Handle initialization error
+        fatalError (SDL_GetError ());
     }
     atexit (SDL_Quit);  // Ensure SDL quits when the program exits
 
     // Initialize SDL_image
     int initted = IMG_Init(IMG_INIT_PNG);
     if (initted != IMG_INIT_PNG) {
-        fatalError(IMG_GetError ());  // Handle initialization error
+        fatalError(IMG_GetError ());
     }
 
     // Load images
     BackgroundImage = IMG_Load ("../etape3/background.png");
     if (BackgroundImage == NULL) {
-        fatalError(IMG_GetError ());  // Handle image loading error
+        fatalError(IMG_GetError ());
     }
     SpriteO = IMG_Load ("../etape3/sprite_O.png");
     if (SpriteO == NULL) {
-        fatalError(IMG_GetError ());  // Handle image loading error
+        fatalError(IMG_GetError ());
     }
     SpriteX = IMG_Load ("../etape3/sprite_X.png");
     if (SpriteX == NULL) {
-        fatalError(IMG_GetError ());  // Handle image loading error
+        fatalError(IMG_GetError ());
     }
 
     // Create the window
     MainWindow = SDL_CreateWindow ("Tic Tac Toe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 480, 480, 0);
     if (MainWindow == NULL) {
-        fatalError (SDL_GetError ());  // Handle window creation error
+        fatalError (SDL_GetError ());
     }
 
     // Create the main renderer
     MainRenderer = SDL_CreateRenderer(MainWindow, -1, SDL_RENDERER_ACCELERATED);
     if (MainRenderer == NULL) {
-        fatalError(SDL_GetError());  // Handle renderer creation error
+        fatalError(SDL_GetError())
     }
     BoardView_displayAll();  // Display the initial board
 }
@@ -90,7 +90,7 @@ void BoardView_free (void)
 void BoardView_displayAll (void)
 {
     // Render the background image
-    renderImage(BackgroundImage, 0, 0);  // Adjust coordinates if necessary
+    renderImage(BackgroundImage, 0, 0);
 
     // Display all board squares
     for (int i = 0; i < 3; ++i) {
@@ -113,7 +113,7 @@ void BoardView_displaySquare (Coordinate x, Coordinate y, PieceType kindOfPiece)
         default:
             return;  // If the square is empty, do nothing
     }
-    renderImage(currentSprite, x * 160, y * 160);  // Adjust coordinates if necessary
+    renderImage(currentSprite, x * 160, y * 160);
 }
 
 void BoardView_displayEndOfGame (GameResult result)
