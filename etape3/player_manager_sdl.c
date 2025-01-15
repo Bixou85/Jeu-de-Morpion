@@ -29,8 +29,7 @@ void PlayerManager_free (void)
 static bool tryMove (int x, int y)
 {
     if (Board_getSquareContent(x, y) == NONE) {
-        Board_putPiece(x, y, currentPlayer);  // Place the piece on the board
-        return true;
+        return Board_putPiece(x, y, currentPlayer);  // Place the piece on the board
     } else {
         BoardView_sayCannotPutPiece();  // Inform the player that the move is invalid
         return false;
